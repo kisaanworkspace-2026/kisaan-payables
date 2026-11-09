@@ -1,0 +1,171 @@
+/* Kisaan Payables - app.css
+   Sections are marked per phase so later phases append, never rewrite. */
+
+/* ===== Core / tokens ===== */
+:root {
+  --g: #176b3a;
+  --g2: #0b8b4a;
+  --ink: #17352a;
+  --muted: #718078;
+  --bg: #f4f8f5;
+  --card: #fff;
+  --line: #e4ece7;
+  --red: #d94848;
+  --orange: #dc8a19;
+  --blue: #2878d4;
+  --shadow: 0 6px 22px rgba(25, 53, 42, .07);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; width: 100%; min-height: 100%; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Gurmukhi", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+button { font: inherit; border: 0; cursor: pointer; }
+[hidden] { display: none !important; }
+
+.ic {
+  width: 20px; height: 20px; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.ic.inline { width: 18px; height: 18px; vertical-align: -3px; }
+
+.app { min-height: 100dvh; }
+.screen { min-height: 100dvh; }
+
+/* ===== Shared buttons ===== */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: min(420px, 100%);
+  padding: 16px 24px; border-radius: 999px;
+  background: var(--g); color: #fff;
+  font-weight: 800; font-size: 17px;
+  box-shadow: 0 10px 24px rgba(23, 107, 58, .25);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-primary:active { transform: scale(.98); box-shadow: 0 4px 12px rgba(23, 107, 58, .25); }
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: min(420px, 100%); margin-top: 12px;
+  padding: 13px 20px; border-radius: 999px;
+  background: rgba(255, 255, 255, .85); color: var(--g);
+  border: 1.5px solid var(--g); font-weight: 750; font-size: 15px;
+}
+.btn-primary:focus-visible, .btn-ghost:focus-visible { outline: 3px solid #8fd1a9; outline-offset: 2px; }
+
+/* ===== PHASE 1: Welcome ===== */
+.welcome {
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(28px + var(--safe-t)) 20px calc(28px + var(--safe-b));
+  position: relative; overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02)),
+    url("../assets/welcome-bg.png") center / cover no-repeat,
+    linear-gradient(160deg, #eaf1ec, #d9ebdf);
+}
+.welcome-box { position: relative; z-index: 1; width: min(720px, 100%); text-align: center; }
+
+.logo-wrap { min-height: 100px; display: flex; align-items: center; justify-content: center; }
+.logo { width: min(180px, 42vw); max-height: 100px; object-fit: contain; }
+.logo-fallback { font-size: 40px; font-weight: 900; color: var(--g); letter-spacing: .5px; }
+
+.tag {
+  font-family: Georgia, serif; font-style: italic;
+  color: #6b351c; font-size: clamp(18px, 3vw, 24px);
+}
+.welcome h1 {
+  font-size: clamp(30px, 6vw, 52px); line-height: 1.05;
+  color: var(--g); margin: 26px 0 10px;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, .72);
+}
+.lead {
+  max-width: 520px; margin: 0 auto 24px;
+  color: #244b39; font-weight: 650;
+  font-size: clamp(14px, 2vw, 17px);
+  text-shadow: 0 1px 5px rgba(255, 255, 255, .78);
+}
+
+.features {
+  list-style: none; padding: 0; margin: 28px auto 0;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+  width: min(420px, 100%);
+}
+.feature {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border-radius: 14px;
+  background: rgba(255, 255, 255, .82); backdrop-filter: blur(4px);
+  color: var(--g); font-weight: 700; font-size: 14px; text-align: left;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 640px) {
+  .features { grid-template-columns: repeat(4, 1fr); width: 100%; }
+  .feature { flex-direction: column; text-align: center; padding: 16px 10px; }
+}
+
+/* Entrance animation (skipped for reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .welcome-box > * { animation: rise .5s ease both; }
+  .welcome-box > *:nth-child(2) { animation-delay: .06s; }
+  .welcome-box > *:nth-child(3) { animation-delay: .12s; }
+  .welcome-box > *:nth-child(4) { animation-delay: .18s; }
+  .welcome-box > *:nth-child(5) { animation-delay: .24s; }
+  .welcome-box > *:nth-child(6) { animation-delay: .30s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+}
+
+/* Placeholder for upcoming phases */
+.placeholder { display: flex; align-items: center; justify-content: center; padding: 28px 20px; }
+.placeholder-box { text-align: center; width: min(420px, 100%); }
+.placeholder-box h2 { color: var(--g); margin: 0 0 8px; }
+
+/* ===== PWA chrome: offline bar, toast, iOS sheet ===== */
+.offline-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding: calc(6px + var(--safe-t)) 12px 6px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--orange); color: #fff; font-size: 13px; font-weight: 700;
+}
+.offline-bar .ic { width: 16px; height: 16px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(20px + var(--safe-b)); transform: translateX(-50%);
+  z-index: 60; max-width: min(92vw, 420px);
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-radius: 14px;
+  background: var(--ink); color: #fff; font-size: 14px; font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+.toast button {
+  background: #fff; color: var(--g); border-radius: 999px;
+  padding: 6px 14px; font-weight: 800; font-size: 13px;
+}
+
+.sheet-backdrop {
+  position: fixed; inset: 0; z-index: 70;
+  background: rgba(0, 0, 0, .4);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.sheet {
+  position: relative; width: min(480px, 100%);
+  background: #fff; border-radius: 20px 20px 0 0;
+  padding: 24px 22px calc(24px + var(--safe-b));
+}
+.sheet h3 { margin: 0 0 12px; color: var(--g); }
+.sheet ol { margin: 0; padding-left: 20px; line-height: 2; }
+.sheet-close {
+  position: absolute; top: 12px; right: 12px;
+  background: var(--bg); color: var(--ink);
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+}
+
+/* ===== PHASE 2: Dashboard (appended later) ===== */
+/* ===== PHASE 3: Vendors (appended later) ===== */
+/* ===== PHASE 4: Invoices (appended later) ===== */
+/* ===== PHASE 5: Reports (appended later) ===== */
