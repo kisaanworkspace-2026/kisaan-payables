@@ -2,13 +2,15 @@
    - App shell: cached on install, served fast/offline (stale-while-revalidate).
    - Apps Script API calls (script.google.com / googleusercontent) are NEVER cached: money data must be live.
    Change VERSION whenever you deploy a new build so users get the update prompt. */
-const VERSION = 'kisaan-payables-v1.0.0';
+const VERSION = 'kisaan-payables-v1.1.0';
 const SHELL = [
   './',
   'index.html',
   'css/app.css',
   'js/config.js',
   'js/app.js',
+  'js/api.js',
+  'js/dashboard.js',
   'manifest.webmanifest',
   'assets/kisaan-logo.png',
   'assets/welcome-bg.png',

@@ -32,6 +32,14 @@
     <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 4-2.5M22 8.8a15 15 0 0 0-10-3.6M5 12.9a10 10 0 0 1 5-2.7M19 12.9a10 10 0 0 0-2.4-1.9M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M2 2l20 20"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.01"/></symbol>
+    <symbol id="i-today" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M9 15l2 2 4-4"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7M6 10v10h12V10"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-alert-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.01"/></symbol>
   </defs>
 </svg>
 
@@ -69,7 +77,81 @@
     </div>
   </section>
 
-  <!-- Placeholder for screens not built yet (Phases 2 to 5). Replaced phase by phase. -->
+  <!-- PHASE 2: Dashboard -->
+  <section id="screen-dashboard" class="screen dashboard" data-screen="dashboard" hidden>
+    <header class="top">
+      <div class="top-row">
+        <div>
+          <small>KISAAN PAYABLES</small>
+          <h2 id="dashGreeting">Good Morning ਸੱਜਣੋ 🙏</h2>
+          <div id="dashDate" class="dash-date">—</div>
+        </div>
+        <button class="icon-btn" data-action="dash-refresh" type="button" aria-label="Refresh">
+          <svg class="ic"><use href="#i-refresh"/></svg>
+        </button>
+      </div>
+      <div class="hero-money">
+        <div class="eyebrow">TOTAL OUTSTANDING</div>
+        <div class="value" id="heroOutstanding">—</div>
+        <div class="sub">Actual payable after applicable credit notes</div>
+      </div>
+      <div class="credit-summary">
+        <div class="credit-pill"><div class="label">Gross Outstanding</div><div class="value" id="heroGross">—</div></div>
+        <div class="credit-pill"><div class="label">Less Credit Notes</div><div class="value" id="heroCredits">—</div></div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div id="dashError" class="banner" hidden></div>
+
+      <div class="cards">
+        <button type="button" class="card metric red" data-go="invoices?filter=overdue">
+          <span class="m-icon"><svg class="ic"><use href="#i-warning"/></svg></span>
+          <span class="label">Overdue</span>
+          <span class="num" id="mOverdue">—</span>
+          <span class="count" id="mOverdueCount">—</span>
+        </button>
+        <button type="button" class="card metric orange" data-go="invoices?filter=due">
+          <span class="m-icon"><svg class="ic"><use href="#i-today"/></svg></span>
+          <span class="label">Due Today</span>
+          <span class="num" id="mDue">—</span>
+          <span class="count" id="mDueCount">—</span>
+        </button>
+        <button type="button" class="card metric blue" data-go="invoices?filter=upcoming">
+          <span class="m-icon"><svg class="ic"><use href="#i-calendar"/></svg></span>
+          <span class="label">Next 30 Days</span>
+          <span class="num" id="mUpcoming">—</span>
+          <span class="count" id="mUpcomingCount">—</span>
+        </button>
+        <div class="card metric green">
+          <span class="m-icon"><svg class="ic"><use href="#i-bank"/></svg></span>
+          <span class="label">Gross Invoice Value</span>
+          <span class="num" id="mGross">—</span>
+          <span class="count" id="mGrossCount">—</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <div>
+            <h3>Upcoming Cash Requirements</h3>
+            <small class="section-sub">Tap a bar to view those invoices</small>
+          </div>
+        </div>
+        <div class="card chart-card"><div id="monthChart" class="months"></div></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Top Vendor Exposure</h3>
+          <button type="button" class="link" data-go="vendors">All vendors</button>
+        </div>
+        <div id="topVendors" class="list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Placeholder for screens not built yet (Phases 3 to 5). Replaced phase by phase. -->
   <section id="screen-placeholder" class="screen placeholder" data-screen="placeholder" hidden>
     <div class="placeholder-box">
       <h2 id="phTitle">Coming soon</h2>
@@ -81,6 +163,25 @@
   </section>
 
 </main>
+
+<!-- Bottom navigation (hidden on Welcome) -->
+<nav class="bottom-nav" aria-label="Main">
+  <button type="button" class="nav-item" data-go="dashboard"><svg class="ic"><use href="#i-home"/></svg><span>Dashboard</span></button>
+  <button type="button" class="nav-item" data-go="vendors"><svg class="ic"><use href="#i-users"/></svg><span>Vendors</span></button>
+  <button type="button" class="nav-item" data-go="invoices"><svg class="ic"><use href="#i-file"/></svg><span>Invoices</span></button>
+  <button type="button" class="nav-item" data-go="reports"><svg class="ic"><use href="#i-insights"/></svg><span>Reports</span></button>
+</nav>
+
+<!-- PIN prompt (only appears if APP_PIN is set on the server) -->
+<div id="pinSheet" class="sheet-backdrop" hidden>
+  <form id="pinForm" class="sheet" autocomplete="off">
+    <button class="sheet-close" data-action="close-pin" type="button" aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+    <h3>Enter PIN</h3>
+    <input id="pinInput" class="pin-input" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" aria-label="PIN">
+    <div id="pinError" class="pin-error" role="alert"></div>
+    <button class="btn-primary" type="submit">Unlock</button>
+  </form>
+</div>
 
 <!-- iOS install help (Safari has no install prompt) -->
 <div id="iosSheet" class="sheet-backdrop" hidden>
@@ -100,5 +201,7 @@
 
 <script src="js/config.js"></script>
 <script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>

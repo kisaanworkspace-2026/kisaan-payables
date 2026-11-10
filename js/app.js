@@ -27,6 +27,13 @@
       var h = Util.hour();
       return h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : h < 21 ? 'Good Evening' : 'Good Night';
     },
+    money: function (n) {
+      return '$' + Number(n || 0).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    },
+    initials: function (name) {
+      var w = String(name || '').match(/[\p{L}\p{N}]+/gu) || ['?'];
+      return (w[0][0] + (w.length > 1 ? w[1][0] : '')).toUpperCase();
+    },
     isStandalone: function () {
       return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     },
@@ -72,6 +79,13 @@
     register: function (name, def) { screens[name] = def; },
     go: function (name) { location.hash = '#/' + name; },
     current: function () { return (location.hash.replace(/^#\/?/, '') || 'welcome').split('?')[0]; },
+    // e.g. #/invoices?filter=overdue  ->  { filter: 'overdue' }
+    params: function () {
+      var q = location.hash.split('?')[1] || '';
+      var out = {};
+      new URLSearchParams(q).forEach(function (v, k) { out[k] = v; });
+      return out;
+    },
     render: function () {
       var name = Router.current();
       var wel = $('screen-welcome'), ph = $('screen-placeholder');
@@ -91,6 +105,9 @@
         wel.hidden = false; // unknown route
       }
       document.body.classList.toggle('on-welcome', name === 'welcome');
+      document.querySelectorAll('.nav-item').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-go') === name);
+      });
       window.scrollTo(0, 0);
     }
   };
@@ -174,6 +191,8 @@
 
   /* ---------- One delegated click handler (no inline onclick) ---------- */
   document.addEventListener('click', function (e) {
+    var go = e.target.closest('[data-go]');
+    if (go) { Router.go(go.getAttribute('data-go')); return; }
     var t = e.target.closest('[data-action]');
     if (!t) return;
     switch (t.getAttribute('data-action')) {
